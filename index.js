@@ -33,7 +33,8 @@ var corsOptions = {
     'https://nodejs-online-project.vercel.app',
     'https://theforesite.com',
     'http://localhost:4200',
-    'https://theforesite.in']
+    'https://theforesite.in',
+  "hellooo"]
 };
 
 app.use(cors(corsOptions));
