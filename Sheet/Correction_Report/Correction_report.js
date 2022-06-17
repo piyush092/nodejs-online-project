@@ -1,4 +1,4 @@
-module.exports = function (app,CONNECTINO,req)
+module.exports = function (CONNECTION,req)
 {
     if (req.body['Depot_Name'] != '' && req.body['Depot_Name'] != null && req.body['Start_Date'] != '' && req.body['End_Date'] != '')
     {
@@ -23,7 +23,7 @@ module.exports = function (app,CONNECTINO,req)
             INNER JOIN depot as de  WHERE entryDate>'2020-06-07' AND entryDate between '${req.body['Start_Date']}' 
             AND '${req.body['End_Date'] }' and de.depot_name='${ req.body['Depot_Name'] }'  AND de.depot_code=outtable.depot_code AND comments='NA' GROUP by de.depot_name;`;
             
-            CONNECTINO.query(QUERY_1+QUERY_2+QUERY_3+QUERY_4, [1,2,3,4], (e, r) =>
+            CONNECTION.query(QUERY_1+QUERY_2+QUERY_3+QUERY_4, [1,2,3,4], (e, r) =>
             {
                 if (e)
                 {

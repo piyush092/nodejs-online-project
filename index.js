@@ -89,13 +89,14 @@ app.get('/Grade', (req, res) =>
 {
   res.json({ Status: true, Grade_List: d });
 });
-// app.post("/Correction_Report/data",  (req, res) =>
-// {
-//   CORRECTION_REPORT_DATA(app, sql,req).then((e) =>
-//   {
-//     res.json(e);
-//   });  
-// });
+
+app.post("/Correction_Report/data",  (req, res) =>
+{
+  CORRECTION_REPORT_DATA(sql, req)?.then((e) =>
+  {
+    res.json(e);
+  });
+});
 
 app.post("/Dsr_Report/data",  (req, res) =>
 {
