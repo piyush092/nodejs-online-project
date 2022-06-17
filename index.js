@@ -57,10 +57,15 @@ OutwardViewData(app, sql);
 OutWardInsertSheet(app, sql);
 OutwardUpdateSheet(app, sql);
 OutwardDeleteData(app, sql);
-
 StockSheetViewData(app, sql,d);
-NewStockSheetViewData(app, sql);
 
+app.post("/NewStockSheet/getData", (req, res) =>
+{
+  NewStockSheetViewData(sql,req).then((e) =>
+  {
+    res.json(e);
+  });  
+});
 app.post("/NewStockSheet2/getData",(req, res) =>
 {
   NewStockSheetViewData2(app, sql, d,req).then((e) =>
