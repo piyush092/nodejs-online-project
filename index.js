@@ -87,7 +87,7 @@ Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
   });  
 });
 
-app.get('Status', (req,res) =>
+app.get('/Status', (req,res) =>
 {
   res.json(STATUS_CHECK);
 });
