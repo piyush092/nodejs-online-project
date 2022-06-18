@@ -14,7 +14,7 @@ const OutwardDeleteData = require('./OutwardSheet/OutwardDelete.js');
 const OutwardUpdateSheet = require('./OutwardSheet/OutwardUpdate.js');
 
 const LoginCredentional = require('./LoginDB/Logindb.js');
-const ResetPassowrdCredentional = require('./LoginDB/Logindb.js');
+const ResetPassowrdCredentional = require('./LoginDB/ResetPassword.js');
 const Depot_details = require('./Depot_Data/DepotList.js');
 const ExcelTodb = require('./Excel_to_Db/Excel_to_db.js');
 const Dealer_Details = require('./Depot_Data/DealerDetails.js');
