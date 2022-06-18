@@ -14,6 +14,7 @@ const OutwardDeleteData = require('./OutwardSheet/OutwardDelete.js');
 const OutwardUpdateSheet = require('./OutwardSheet/OutwardUpdate.js');
 
 const LoginCredentional = require('./LoginDB/Logindb.js');
+const ResetPassowrdCredentional = require('./LoginDB/Logindb.js');
 const Depot_details = require('./Depot_Data/DepotList.js');
 const ExcelTodb = require('./Excel_to_Db/Excel_to_db.js');
 const Dealer_Details = require('./Depot_Data/DealerDetails.js');
@@ -75,6 +76,7 @@ app.post("/NewStockSheet2/getData",(req, res) =>
 });
 
 LoginCredentional(app, sql, STATUS_CHECK);
+ResetPassowrdCredentional(app, sql, STATUS_CHECK);
 Depot_details(app, sql, STATUS_CHECK);
 Dealer_Details(app, sql, STATUS_CHECK);
 Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
