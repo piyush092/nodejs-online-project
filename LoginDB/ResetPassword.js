@@ -11,10 +11,10 @@ app.post("/ResetPassword", (req, res) =>
         {
             if (r.length != 0)
             {
-                CONNECTION.query(`UPDATE employee_details SET password = '${req.body['New_password']}' WHERE email_id='${req.body['Email_Id']}';`, (e, r) =>
+                CONNECTION.query(`UPDATE employee_details SET password = '${req.body['New_password']}' WHERE email_id='${req.body['Email_Id']}';`, (e, r2) =>
                 { 
                     STATUS_CHECK = { "MESSAGE": 'Successfully Reset Paasword..', "ERROR_MESSAGE": "", "STATUS": true };
-                    res.json({status:true,Emp_Id:r['emp_id'],Login_Type:r['Role_Type'],data:r});  
+                    res.json({status:true,Emp_Id:r['emp_id'],Login_Type:r['Role_Type'],data:r,STATUS_CHECK:STATUS_CHECK});  
                 });
               
             } else
