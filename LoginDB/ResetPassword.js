@@ -30,7 +30,7 @@ app.post("/ResetPassword", (req, res) =>
         }
       });
 });
-app.post("/ResetPassword", (req, res) =>
+app.get("/ResetPassword", (req, res) =>
 {
     res.json({Hello:'Hy Abhi'})
 });
