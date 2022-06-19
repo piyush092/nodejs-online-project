@@ -37,17 +37,17 @@ module.exports = async  (app,CONNECTION,req)=>
                         };
                         TOTAL_SUM += r[j]['SUM'];
                     }
-                    var result_2 = DATE_LIST_ALL.filter(x => !dump.includes(x));
-                    for (let result_index = 0; result_index < result_2.length; result_index++)
-                    {
-                        var DATE_SPLIT_2 = result_2[result_index].split('-');
-                        DATE_CREATE_LIST_STORE['KEY_'+DATE_SPLIT_2[2]] ={
-                            DATE: result_2[result_index],
-                            DEPOT_CODE:DEPOT_LIST[index],
-                            DEPOT_NAME: DEPOT_NAME[DEPOT_LIST[index]],
-                            SUM:0
-                        };
-                    }
+                    // var result_2 = DATE_LIST_ALL.filter(x => !dump.includes(x));
+                    // for (let result_index = 0; result_index < result_2.length; result_index++)
+                    // {
+                    //     var DATE_SPLIT_2 = result_2[result_index].split('-');
+                    //     DATE_CREATE_LIST_STORE['KEY_'+DATE_SPLIT_2[2]] ={
+                    //         DATE: result_2[result_index],
+                    //         DEPOT_CODE:DEPOT_LIST[index],
+                    //         DEPOT_NAME: DEPOT_NAME[DEPOT_LIST[index]],
+                    //         SUM:0
+                    //     };
+                    // }
                     DATA_STORE[DEPOT_NAME[DEPOT_LIST[index]]] = {
                         Data: DATE_CREATE_LIST_STORE,
                         SUM: TOTAL_SUM
