@@ -1,7 +1,7 @@
-module.exports =  (app,CONNECTION,req)=>
+module.exports = async  (app,CONNECTION,req)=>
 {
 
-    return  new Promise( (resolve, reject) =>
+    return  new Promise(async (resolve, reject) =>
     {
         if (req.body['Select_Month'] != '' &&  req.body['Select_Year']!='')
         {
@@ -20,7 +20,7 @@ module.exports =  (app,CONNECTION,req)=>
                 and d.depot_code='${ DEPOT_LIST[index] }' GROUP by invoiceDate,newstock.depot_code,
                 d.depot_name`;
                 var DATE_CREATE_LIST_STORE ={};
-                 CONNECTION.query(Q, [1],  (e, r) =>
+                await CONNECTION.query(Q, [1], async (e, r) =>
                 { 
                     var dump = [];
                     DATE_CREATE_LIST_STORE = {};
@@ -52,7 +52,7 @@ module.exports =  (app,CONNECTION,req)=>
                         Data: DATE_CREATE_LIST_STORE,
                         SUM: TOTAL_SUM
                     };  
-                    setTimeout(() =>{
+                   await setTimeout(() =>{
                         if ((index + 1) == MAX_LENGTH)
                         {
                             resolve(DATA_STORE);
