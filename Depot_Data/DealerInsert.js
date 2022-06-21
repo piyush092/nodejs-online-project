@@ -11,13 +11,15 @@ module.exports = function (app, MYSQL_CON)
             '${ DATA['Depot_Name'] }','${ DATA['Dealer_Name'] }','${ DATA['Dealer_Code'] }',
             '${ DATA['Email_Id'] }','${ DATA['Contact_Number'] }','${ DATA['CityName'] }',
             '${ DATA['STATE'] }','${ DATA['PNCODE'] }','${ DATA['Address'] }','0',
-            '${ new Date().toString()}';`; 
+            '${ new Date().toString() }';`; 
+            console.log(INSERT_QUERY_DEALER_DETAILS);
+
             MYSQL_CON.query(INSERT_QUERY_DEALER_DETAILS, [1], function(err, results) {
                 if (err) throw err;
               if (results[0]['affectedRows']!=0) {
                    res.json({ Status: true, Message: 'Insert Successfully',Result:[results[0]]});
               } else{
-                   res.json({ Status: true, Error:err,Result:[results[0]]});
+                   res.json({ Status: false, Error:err,Result:[results[0]]});
               }
             });
         });
