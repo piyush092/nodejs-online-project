@@ -1,6 +1,6 @@
 module.exports = function (app, MYSQL_CON)
 {
-    app.post('/InwardSheetData/Insert', (req, res) =>
+    app.post('/DelarDetails/Insert', (req, res) =>
     {
         var DATA = req.body;
         getPrimaryLastKey(MYSQL_CON).then((id) =>
