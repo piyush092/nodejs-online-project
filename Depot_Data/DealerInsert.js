@@ -19,10 +19,10 @@ module.exports = function (app, MYSQL_CON)
 
             MYSQL_CON.query(INSERT_QUERY_DEALER_DETAILS, [1], function(err, results) {
                 if (err) throw err;
-              if (results[0]['affectedRows']!=0) {
-                   res.json({ Status: true, Message: 'Insert Successfully',Result:[results[0]]});
+              if (results['affectedRows']!=0) {
+                   res.json({ Status: true, Message: 'Insert Successfully',Result:[results]});
               } else{
-                   res.json({ Status: false, Error:err,Result:[results[0]]});
+                   res.json({ Status: false, Error:err,Result:[results]});
               }
             });
         });
