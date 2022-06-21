@@ -6,7 +6,7 @@ module.exports = function (app, MYSQL_CON)
         getPrimaryLastKey(MYSQL_CON).then((id) =>
         {
             console.log(id['PRIMARY_KEY']);
-            var PRIMARY_KEY = (parseInt((id['PRIMARY_KEY']).replace('UNIQUE_')));
+            var PRIMARY_KEY = (parseInt((id['PRIMARY_KEY']).replace('UNIQUE_','')));
             var UNIQUE_ID = 'UNIQUE_' + (PRIMARY_KEY+1);
 
             var INSERT_QUERY_DEALER_DETAILS = `INSERT INTO dealer_details values('${ (UNIQUE_ID) }',
