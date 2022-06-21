@@ -19,6 +19,7 @@ const Depot_details = require('./Depot_Data/DepotList.js');
 const ExcelTodb = require('./Excel_to_Db/Excel_to_db.js');
 const Dealer_Details = require('./Depot_Data/DealerDetails.js');
 const Dealer_DetailsALL = require('./Depot_Data/ALL_DEALER_DETAILS.js');
+const Dealer_INSERT = require('./Depot_Data/DealerInsert.js');
 const StockSheetViewData = require('./Sheet/StockSheet/StockSheetData.js');
 const NewStockSheetViewData = require('./Sheet/NewStockSheet/newstock.js');
 const NewStockSheetViewData2 = require('./Sheet/NewStockSheet/newstock2.js');
@@ -79,6 +80,7 @@ LoginCredentional(app, sql, STATUS_CHECK);
 ResetPassowrdCredentional(app, sql, STATUS_CHECK);
 Depot_details(app, sql, STATUS_CHECK);
 Dealer_Details(app, sql, STATUS_CHECK);
+Dealer_INSERT(app, sql);
 Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
 {
   app.get("/Dealer/data", (req, res) =>
