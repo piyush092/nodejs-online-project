@@ -1,10 +1,11 @@
 module.exports = function (app, MYSQL_CON)
 {
-    app.post('/DelarDetails/Insert', (req, res) =>
+    app.post('/Dealer/Insert', (req, res) =>
     {
         var DATA = req.body;
         getPrimaryLastKey(MYSQL_CON).then((id) =>
         {
+            console.log(id);
             var UNIQUE_ID = 'UNIQUE_' + (parseInt(id.replace('UNIQUE_')) + 1);
             var INSERT_QUERY_DEALER_DETAILS = `INSERT INTO dealer_details values('${ UNIQUE_ID }',
             '${ DATA['Depot_Name'] }','${ DATA['Dealer_Name'] }','${ DATA['Dealer_Code'] }',
