@@ -6,12 +6,12 @@ module.exports = function (app, MYSQL_CON)
         getPrimaryLastKey(MYSQL_CON).then((id) =>
         {
             console.log(id['PRIMARY_KEY']);
-            var UNIQUE_ID = 'UNIQUE_' + (parseInt((id['PRIMARY_KEY']).replace('UNIQUE_')) + 1);
-            var INSERT_QUERY_DEALER_DETAILS = `INSERT INTO dealer_details values('${ UNIQUE_ID }',
+            var UNIQUE_ID = 'UNIQUE_' + (parseInt((id['PRIMARY_KEY']).replace('UNIQUE_'))+1);
+            var INSERT_QUERY_DEALER_DETAILS = `INSERT INTO dealer_details values('${ (UNIQUE_ID) }',
             '${ DATA['Depot_Name'] }','${ DATA['Dealer_Name'] }','${ DATA['Dealer_Code'] }',
             '${ DATA['Email_Id'] }','${ DATA['Contact_Number'] }','${ DATA['CityName'] }',
             '${ DATA['STATE'] }','${ DATA['PNCODE'] }','${ DATA['Address'] }','0',
-            '${ new Date().toLocaleDateString()}';`; 
+            '${ new Date().toString()}';`; 
             MYSQL_CON.query(INSERT_QUERY_DEALER_DETAILS, [1], function(err, results) {
                 if (err) throw err;
               if (results[0]['affectedRows']!=0) {
