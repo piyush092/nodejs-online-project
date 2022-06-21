@@ -30,7 +30,7 @@ function getPrimaryLastKey (con)
        con.query(sql, (e, r) =>
        {
          if (r!='' && r!=undefined) {
-           resolve(r[r.length])
+           resolve(r[(r.length-1)])
          } else
          {
           resolve([{id:'0'}])
