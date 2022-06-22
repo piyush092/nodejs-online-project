@@ -89,7 +89,7 @@ Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
   });  
 });
 
-app.get("/Labour/data", (req, res) =>
+app.post("/Labour/data", (req, res) =>
 {
   LABOUR_DATA(app, sql,req).then((e) =>
 {
