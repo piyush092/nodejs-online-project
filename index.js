@@ -27,7 +27,7 @@ const CORRECTION_REPORT_DATA = require('./Sheet/Correction_Report/Correction_rep
 const DSR_REPORT_DATA = require('./Sheet/DSR_Report/dsr_report.js');
 const DSR_REPORT_DATA_2 = require('./Sheet/DSR_Report/drs_report_2.js');
 const DSR_REPORT_DATA_3 = require('./Sheet/DSR_Report/dsr_report_3.js');
-
+const LABOUR_DATA = require('./Sheet/Labour_Report/Labour_report.js');
 var STATUS_CHECK = null;
 
 var corsOptions = {
@@ -88,6 +88,14 @@ Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
     res.json({e})
   });  
 });
+
+app.get("/Labour/data", (req, res) =>
+{
+  LABOUR_DATA(app, sql,req).then((e) =>
+{
+  res.json({e})
+});
+});  
 
 app.get('/Status', (req,res) =>
 {
