@@ -1,4 +1,4 @@
-module.exports =  (app,CONNECTION,req)=>
+module.exports =  (connection,req)=>
 {
     return  new Promise( (resolve, reject) =>
     {
@@ -11,10 +11,9 @@ module.exports =  (app,CONNECTION,req)=>
          SUM(transphipment) as transphipmentsum,entryDate as entryDate2,depot_code as de
          from intable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
          and depot_code='${req.body['Depot_Code']}' and deleteflag='0' and grade!='DSP' GROUP BY entryDate;`;
-            CONNECTION.query(q_1, [1], (e, r) =>
-            {
-                resolve(r);
-            });       
+         connection.query(q_1, [1], (e, r) =>{
+            resolve(r);
+         });       
         }
     });    
 }

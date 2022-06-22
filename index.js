@@ -91,10 +91,11 @@ Dealer_DetailsALL(app, sql, STATUS_CHECK).then((e) =>
 
 app.post("/Labour/data", (req, res) =>
 {
-  LABOUR_DATA(app, sql,req).then((e) =>
-{
-  res.json({e})
-});
+  LABOUR_DATA(sql, req).then((e) =>
+  {
+    console.log(e);
+    res.json({ e });
+  });
 });  
 
 app.get('/Status', (req,res) =>
