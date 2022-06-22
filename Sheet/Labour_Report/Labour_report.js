@@ -11,7 +11,9 @@ module.exports =  (connection,req)=>
          SUM(transphipment) as transphipmentsum,entryDate as entryDate2,depot_code as de
          from intable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
          and depot_code='${req.body['Depot_Code']}' and deleteflag='0' and grade!='DSP' GROUP BY entryDate;`;
-         connection.query(q_1, [1], (e, r) =>{
+            connection.query(q_1, [1], (e, r) =>
+            {
+                console.log(r);
             resolve(r);
          });       
         }
