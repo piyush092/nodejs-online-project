@@ -10,7 +10,7 @@ function  Insert (CONNECTION, DATA,res)
 {
     if (DATA['DEPOT_NAME'] != '' && DATA['DEPOT_CODE'] != '')
     {
-        var INSERT_QUERY_INWARD_SHEET = `INSERT INTO depot (depot_Name,depot_code) VALUES ('${DATA['DEPOT_NAME']}','${DATA['DEPOT_CODE']}');`;
+        var INSERT_QUERY_INWARD_SHEET = `INSERT INTO depot (depot_Name,depot_code) VALUES ('${DATA['Depot_Name']}','${DATA['Depot_Code']}');`;
   
         CONNECTION.query(INSERT_QUERY_INWARD_SHEET, [1], function(err, results) {
             if (err) throw err;
