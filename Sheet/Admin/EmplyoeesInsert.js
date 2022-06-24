@@ -17,7 +17,10 @@ function  Insert (CONNECTION, DATA,res)
         '${ DATA['Depot_Code'] }','00:00:00','${ DATA['Role'] }');`;
   
         CONNECTION.query(INSERT_QUERY_INWARD_SHEET, [1], function(err, results) {
-            if (err) throw err;
+            if (err){
+                res.json({ Status: true, Error:err,Result:[results]});
+                throw err;                
+            }
           if (results['affectedRows']!=0) {
                res.json({ Status: true, Message: 'Insert Successfully',Result:[results]});
           } else{
