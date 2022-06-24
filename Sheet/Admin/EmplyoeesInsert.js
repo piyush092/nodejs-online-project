@@ -11,7 +11,7 @@ function  Insert (CONNECTION, DATA,res)
     if (DATA['DEPOT_NAME'] != '' && DATA['DEPOT_CODE'] != '')
     {
         var INSERT_QUERY_INWARD_SHEET = `INSERT INTO employee_details 
-        VALUES ('${ DATA['EMP_ID'] }','${ DATA['Employees_Name'] }',
+        VALUES ('${ DATA['Emp_Id'] }','${ DATA['Employees_Name'] }',
         '${ DATA['Email_Id'] }','${ DATA['Password'] }',
         '${ DATA['Confirm_Password'] }','${ DATA['Contact_Number'] }',
         '${ DATA['Depot_Code'] }','00:00:00','${ DATA['Role'] }');`;
