@@ -28,6 +28,10 @@ const DSR_REPORT_DATA = require('./Sheet/DSR_Report/dsr_report.js');
 const DSR_REPORT_DATA_2 = require('./Sheet/DSR_Report/drs_report_2.js');
 const DSR_REPORT_DATA_3 = require('./Sheet/DSR_Report/dsr_report_3.js');
 const LABOUR_DATA = require('./Sheet/Labour_Report/Labour_report.js');
+const GradeInsert = require('./Sheet/Admin/GradeInsert.js');
+const EmpInsert = require('./Sheet/Admin/EmplyoeesInsert.js');
+const DepotInsert = require('./Sheet/Admin/DepotInsert.js');
+
 var STATUS_CHECK = null;
 
 var corsOptions = {
@@ -60,6 +64,10 @@ OutWardInsertSheet(app, sql);
 OutwardUpdateSheet(app, sql);
 OutwardDeleteData(app, sql);
 StockSheetViewData(app, sql,d);
+
+EmpInsert(app, sql);
+DepotInsert(app, sql);
+GradeInsert(app, sql);
 
 app.post("/NewStockSheet/getData", (req, res) =>
 {
