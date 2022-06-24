@@ -19,7 +19,7 @@ function  Insert (CONNECTION, DATA,res)
                   resolve({ Status: true, Error:err,Result:[]});
             }
             console.log(results);
-            if (results['affectedRows'] != 0)
+            if (results!= null && results!='')
             {
                 var INSERT_QUERY_INWARD_SHEET = `INSERT INTO employee_details 
                 VALUES ('${ DATA['Emp_Id'] }','${ DATA['Employees_Name'] }',
@@ -38,7 +38,7 @@ function  Insert (CONNECTION, DATA,res)
                   });  
                  resolve({ Status: true, Message: 'Insert Successfully',Result:[results]});
             } else{
-                 resolve({ Status: true, Error:err,Result:[results]});
+                resolve({ Status: true, Error:'Duplicate Entry Please Check Again!',Result:[results]});
             }
           });  
       
