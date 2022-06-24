@@ -1,4 +1,4 @@
-module.exports = function (app,CONNECTION,STATUS_CHECK)
+module.exports = function (app,CONNECTION)
 {
     app.get("/EmpList", (req, res) =>
 {

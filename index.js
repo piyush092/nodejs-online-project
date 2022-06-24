@@ -31,6 +31,7 @@ const LABOUR_DATA = require('./Sheet/Labour_Report/Labour_report.js');
 const GradeInsert = require('./Sheet/Admin/GradeInsert.js');
 const EmpInsert = require('./Sheet/Admin/EmplyoeesInsert.js');
 const DepotInsert = require('./Sheet/Admin/DepotInsert.js');
+const EmpList = require('./Depot_Data/EmpData.js');
 
 var STATUS_CHECK = null;
 
@@ -68,6 +69,7 @@ StockSheetViewData(app, sql,d);
 EmpInsert(app, sql);
 DepotInsert(app, sql);
 GradeInsert(app, sql);
+EmpList(app, sql);
 
 app.post("/NewStockSheet/getData", (req, res) =>
 {
