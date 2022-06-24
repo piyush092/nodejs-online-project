@@ -37,7 +37,7 @@ function  Insert (CONNECTION, DATA,res)
                     }
             });  
             } else{
-                resolve({ Status: true, Error:'Duplicate Entry Please Check Again!',Result:[results]});
+                resolve({ Status: false, Error:'Duplicate Entry Please Check Again!',Result:[results]});
             }
           });  
       
