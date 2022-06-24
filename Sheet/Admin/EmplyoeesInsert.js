@@ -19,24 +19,23 @@ function  Insert (CONNECTION, DATA,res)
                   resolve({ Status: true, Error:err,Result:[]});
             }
             console.log(results);
-            if (results!= null && results!='')
+            if (results== null && results=='')
             {
                 var INSERT_QUERY_INWARD_SHEET = `INSERT INTO employee_details 
                 VALUES ('${ DATA['Emp_Id'] }','${ DATA['Employees_Name'] }',
                 '${ DATA['Email_Id'] }','${ DATA['Password'] }',
                 '${ DATA['Contact_Number'] }',
                 '${ DATA['Depot_Code'] }','00:00:00','${ DATA['Role'] }');`;
-                await CONNECTION.query(INSERT_QUERY_INWARD_SHEET, [1], function(err, results) {
+                await CONNECTION.query(INSERT_QUERY_INWARD_SHEET, [1], function(err, resu) {
                     if (err){
-                          resolve({ Status: true, Error:err,Result:[]});
+                          resolve({ Status: true, Error:err,resu:[]});
                       }
-                    if (results['affectedRows']!=0) {
-                         resolve({ Status: true, Message: 'Insert Successfully',Result:[results]});
+                    if (resu['affectedRows']!=0) {
+                         resolve({ Status: true, Message: 'Insert Successfully',Result:[resu]});
                     } else{
-                         resolve({ Status: true, Error:err,Result:[results]});
+                         resolve({ Status: true, Error:err,Result:[resu]});
                     }
-                  });  
-                 resolve({ Status: true, Message: 'Insert Successfully',Result:[results]});
+            });  
             } else{
                 resolve({ Status: true, Error:'Duplicate Entry Please Check Again!',Result:[results]});
             }
