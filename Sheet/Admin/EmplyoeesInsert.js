@@ -18,7 +18,7 @@ function  Insert (CONNECTION, DATA,res)
             if (err){
                   resolve({ Status: true, Error:err,Result:[]});
             }
-            if (results== null || results=='')
+            if (results.length==0)
             {
                 var INSERT_QUERY_INWARD_SHEET = `INSERT INTO employee_details 
                 VALUES ('${ DATA['Emp_Id'] }','${ DATA['Employees_Name'] }',
