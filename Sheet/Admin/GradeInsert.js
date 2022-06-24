@@ -8,9 +8,9 @@ module.exports = function (app, MYSQL_CON)
 
 function  Insert (CONNECTION, DATA,res)
 {
-    if (DATA['DEPOT_NAME'] != '' && DATA['DEPOT_CODE'] != '')
+    if (DATA['GradeName'] != '' && DATA['GradeName'] != '')
     {
-        var INSERT_QUERY_INWARD_SHEET = `INSERT INTO depot (depot_Name,depot_code) VALUES ('${DATA['DEPOT_NAME']}','${DATA['DEPOT_CODE']}');`;
+        var INSERT_QUERY_INWARD_SHEET = `INSERT INTO Grade_Con VALUES ('','${DATA['GradeName']}');`;
   
         CONNECTION.query(INSERT_QUERY_INWARD_SHEET, [1], function(err, results) {
             if (err) throw err;
