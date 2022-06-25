@@ -81,7 +81,7 @@ function getDepotData (CONNECTION,data)
     {
        if (r!='' && r!=undefined) {
          if (data['Grade']!='DSP') {
-           COST_NR = ((parseFloat(r[0]['nr_Unloading']) * parseFloat(data['Unloading']))/20);
+           COST_NR = ((parseFloat(r[0]['nr_unloading']) * parseFloat(data['Unloading']))/20);
            resolve({ data: [COST_NR, COST_DSP,parseFloat(data['Unloading']),0] });
          } else
          {
