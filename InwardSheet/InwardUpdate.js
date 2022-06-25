@@ -65,11 +65,11 @@ function getDepotData (CONNECTION, data)
             {
                 if (data['Grade'] != 'DSP')
                 {
-                    COST_NR = ((parseFloat(r[0]['nr_Unloading']) * parseFloat(data['GoodStock'])) / 20);
+                    COST_NR = ((parseFloat(r[0]['nr_Unloading']) * parseFloat(data['Unloading'])) / 20);
                     resolve({ data: [COST_NR, COST_DSP] });
                 } else
                 {
-                    COST_DSP = ((parseFloat(r[0]['DSP_Unloading']) * parseFloat(data['GoodStock'])) / 20);
+                    COST_DSP = ((parseFloat(r[0]['DSP_Unloading']) * parseFloat(data['Unloading'])) / 20);
                     resolve({ data: [COST_NR, COST_DSP] })
                 }
             } else
