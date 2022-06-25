@@ -36,7 +36,7 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
         where Unique_Id='${ DATA['Unique_Id'] }';`;
 
         var UPDATE_QUERY_NEWSTOCK_SHEET = `UPDATE newstock SET entryDate='${ DATA['Entry_Date'] }',
-        particulars='${ DATA['dealerName'] }',invoiceNumber='${ DATA['InvoiceNumber'] }',
+        particulars='${ DATA['Dealer_Name'] }',invoiceNumber='${ DATA['InvoiceNumber'] }',
         invoiceDate='${ DATA['InvoiceDate'] }',
         invoiceQty='${ DATA['InvoiceQty'] }',grade='${ DATA['Grade']}',
         vehicleNumber='${DATA['VehicleNumber'] }',
