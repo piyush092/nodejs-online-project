@@ -10,7 +10,8 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
 {
     getDepotData(CONNECTION, DATA).then((reponse) =>
     {
-        console.log(DATA,reponse);
+        var comments = DATA['Comments'];
+
         var UPDATE_QUERY_INWARD_SHEET = `UPDATE outtable SET 
         dealerName='${ DATA['Dealer_Name'] }',
         dealercode='${ DATA['Dealer_Code']}',
@@ -32,7 +33,8 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
         nr_loading_cost='${reponse['data'][0] }',
         dsp_loading_cost='${ reponse['data'][1] }',
         nr_transhipment_cost='${reponse['data'][2] }',
-        dsp_transhipment_cost='${reponse['data'][3] }'
+        dsp_transhipment_cost='${reponse['data'][3] }',
+        comments='${comments }'
         where Unique_Id='${ DATA['Unique_Id'] }';`;
 
         var UPDATE_QUERY_NEWSTOCK_SHEET = `UPDATE newstock SET entryDate='${ DATA['Entry_Date'] }',
@@ -46,7 +48,8 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
         nr_transhipment_cost='${reponse['data'][2] }',
         dsp_transhipment_cost='${reponse['data'][3] }', 
         nr_unloading_cost='0',
-        dsp_unloading_cost='0'
+        dsp_unloading_cost='0',
+        comments='${comments }'
         where Unique_Id='${ DATA['Unique_Id'] }';`;
 
         CONNECTION.query(UPDATE_QUERY_INWARD_SHEET+UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {

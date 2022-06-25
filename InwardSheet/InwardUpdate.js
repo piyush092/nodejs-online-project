@@ -12,7 +12,7 @@ function UpdateInwardSheet (CONNECTION, DATA,res)
 {
     getDepotData(CONNECTION,DATA).then((reponse) =>
     {
-        var comments = 'NA';
+        var comments = DATA['Comments'];
    
         var UPDATE_QUERY_INWARD_SHEET=`UPDATE intable SET particulars='${DATA['SourcePlant']}',
         invoiceNumber='${DATA['InvoiceNumber'] }',invoiceDate='${ DATA['InvoiceDate'] }',
