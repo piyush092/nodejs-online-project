@@ -58,18 +58,18 @@ function getDepotData (CONNECTION, data)
     {
         var COST_NR = 0;
         var COST_DSP = 0;
-        var QUERY = `Select nr_Unloading,DSP_Unloading from depot where depot_code='${ data['Depot_Code'] }'`;
+        var QUERY = `Select * from depot where depot_code='${ data['Depot_Code'] }'`;
         CONNECTION.query(QUERY, (e, r) =>
         {
             if (r != '' && r != undefined)
             {
                 if (data['Grade'] != 'DSP')
                 {
-                    COST_NR = ((parseFloat(r[0]['nr_Unloading']) * parseFloat(data['Unloading'])) / 20);
+                    COST_NR = ((parseFloat(r[0]['nr_unloading']) * parseFloat(data['Unloading'])) / 20);
                     resolve({ data: [COST_NR, COST_DSP] });
                 } else
                 {
-                    COST_DSP = ((parseFloat(r[0]['DSP_Unloading']) * parseFloat(data['Unloading'])) / 20);
+                    COST_DSP = ((parseFloat(r[0]['dsp_unloading']) * parseFloat(data['Unloading'])) / 20);
                     resolve({ data: [COST_NR, COST_DSP] })
                 }
             } else
