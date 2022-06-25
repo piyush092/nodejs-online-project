@@ -53,9 +53,11 @@ function  InsertInwardSheet (CONNECTION, DATA,res)
       '${DATA['InvoiceNumber']}','${DATA['InvoiceDate']}','${DATA['InvoiceQty']}','${DATA['Grade']}',
       '${DATA['VehicleNumber']}','receipt','${DATA['Emp_Id']}','${DATA['Depot_Code']}','${UNIQUE_KEY}',
       '${comments}','${deleteflag}','${ DATA['Month'] }','${ DATA['Year'] }',
-      '0','0','0','0','${depotdata['data'][0]}','${depotdata['data'][1]}','${DATA['Today']}','${calQTY}');`;
+      '0','0','0','0','${depotdata['data'][0] }','${ depotdata['data'][1] }',
+      '${ DATA['Today'] }','${ calQTY }',
+      '0','0','0','0','${depotdata['data'][2]}','${depotdata['data'][3]}');`;
   
-      CONNECTION.query(INSERT_QUERY_INWARD_SHEET+''+INSERT_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
+      CONNECTION.query(INSERT_QUERY_INWARD_SHEET+INSERT_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
           if (err) throw err;
         if (results[0]['affectedRows']!=0 && results[1]['affectedRows']!=0) {
              res.json({ Status: true, Message: 'Insert Successfully',Result:[results[0],results[1]]});
@@ -74,17 +76,17 @@ function getDepotData (CONNECTION,data)
   {
     var COST_NR = 0;
     var COST_DSP = 0;
-    var QUERY = `Select nr_Unloading,DSP_Unloading from depot where depot_code='${ data['Depot_Code'] }'`;
+    var QUERY = `Select * from depot where depot_code='${ data['Depot_Code'] }'`;
     CONNECTION.query(QUERY, (e, r) =>
     {
        if (r!='' && r!=undefined) {
          if (data['Grade']!='DSP') {
            COST_NR = ((parseFloat(r[0]['nr_Unloading']) * parseFloat(data['Unloading']))/20);
-           resolve({ data: [COST_NR, COST_DSP] });
+           resolve({ data: [COST_NR, COST_DSP,parseFloat(data['Unloading']),0] });
          } else
          {
-           COST_DSP = ((parseFloat(r[0]['DSP_Unloading']) * parseFloat(data['Unloading']))/20);
-           resolve({ data: [COST_NR, COST_DSP] })
+           COST_DSP = ((parseFloat(r[0]['dsp_unloading']) * parseFloat(data['Unloading']))/20);
+           resolve({ data: [COST_NR, COST_DSP,0,parseFloat(data['Unloading'])] })
          }
        } else
        {
