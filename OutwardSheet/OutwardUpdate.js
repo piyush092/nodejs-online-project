@@ -10,7 +10,7 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
 {
     getDepotData(CONNECTION, DATA).then((reponse) =>
     {
-        console.log(DATA);
+        console.log(DATA,reponse);
         var UPDATE_QUERY_INWARD_SHEET = `UPDATE outtable SET 
         dealerName='${ DATA['Dealer_Name'] }',
         dealercode='${ DATA['Dealer_Code']}',
@@ -55,11 +55,11 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
                 res.json({ Status: false, Error:err,Result:[]});
                 throw err;  
             } 
-        if (results[0]['affectedRows']!=0 && results[1]['affectedRows']!=0) {
-            res.json({ Status: true, Message: 'Update Successfully',Result:[results[0],results[1]]});
-        } else{
-            res.json({ Status: false, Error:err,Result:[results[0],results[1]]});
-        }
+            if (results[0]['affectedRows']!=0 && results[1]['affectedRows']!=0) {
+                res.json({ Status: true, Message: 'Update Successfully',Result:[results[0],results[1]]});
+            } else{
+                res.json({ Status: false, Error:err,Result:[results[0],results[1]]});
+            }
         });
    });
 }
