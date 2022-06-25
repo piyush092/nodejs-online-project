@@ -71,6 +71,10 @@ function getDepotData (CONNECTION,data)
     var COST_DSP = 0;
     var COST_NR_TPH = 0;
     var COST_DSP_TPH = 0;
+    var QTY_NR = 0;
+    var QTY_DSP = 0;
+    var QTY_NR_TPH = 0;
+    var QTY_DSP_TPH = 0;
     var QUERY = `Select * from depot where depot_code='${ data['Depot_Code'] }'`;
     CONNECTION.query(QUERY, (e, r) =>
      {
@@ -78,14 +82,21 @@ function getDepotData (CONNECTION,data)
          if (data['Grade'] != 'DSP')
          {
            COST_NR = ((parseFloat(r[0]['nr_Loading']) * parseFloat(data['Unloading'])) / 20);
-           COST_NR_TPH= ((parseFloat(r[0]['nr_transhipment']) * parseFloat(data['Transphipment'])) / 20);
+           COST_NR_TPH = ((parseFloat(r[0]['nr_transhipment']) * parseFloat(data['Transphipment'])) / 20);
+           QTY_NR = parseFloat(data['Unloading']);
+           QTY_DSP = 0;
+           QTY_NR_TPH = parseFloat(data['Transphipment']);
+           QTY_DSP_TPH = 0;
          } else
          {
            COST_DSP = ((parseFloat(r[0]['dsp_loading']) * parseFloat(data['Unloading'])) / 20);
            COST_DSP_TPH=((parseFloat(r[0]['dsp_transhipment']) * parseFloat(data['Transphipment'])) / 20);;
+           QTY_NR = 0;
+           QTY_DSP = parseFloat(data['Unloading']);
+           QTY_NR_TPH =0;
+           QTY_DSP_TPH =  parseFloat(data['Transphipment']);
          }
-           resolve({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH] });
-           console.log({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH] });
+         resolve({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH,QTY_NR,QTY_DSP,QTY_NR_TPH ,QTY_DSP_TPH]});
        } else
        {
          resolve([{id:'0'}])

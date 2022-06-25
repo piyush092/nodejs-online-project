@@ -38,7 +38,10 @@ function UpdateInwardSheet (CONNECTION, DATA,res)
         Year='${ DATA['Year'] }',calcQty='${ DATA['InvoiceQty'] }',
         nr_loading_cost='0', dsp_loading_cost='0', nr_transhipment_cost='0', 
         dsp_transhipment_cost='0', nr_unloading_cost='${reponse['data'][0] }',
-        dsp_unloading_cost='${reponse['data'][1]}'
+        dsp_unloading_cost='${reponse['data'][1]}',
+        nr_loading='0', dsp_loading='0', nr_transhipment='0', 
+        dsp_transhipment='0', nr_unloading='${reponse['data'][2] }',
+        dsp_unloading='${reponse['data'][3]}'
         where Unique_Id='${ DATA['Unique_Id'] }';`;
     
         CONNECTION.query(UPDATE_QUERY_INWARD_SHEET+''+UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
@@ -63,15 +66,14 @@ function getDepotData (CONNECTION, data)
         {
             if (r != '' && r != undefined)
             {
-                if (data['Grade'] != 'DSP')
-                {
-                    COST_NR = ((parseFloat(r[0]['nr_unloading']) * parseFloat(data['Unloading'])) / 20);
-                    resolve({ data: [COST_NR, COST_DSP] });
-                } else
-                {
-                    COST_DSP = ((parseFloat(r[0]['dsp_unloading']) * parseFloat(data['Unloading'])) / 20);
-                    resolve({ data: [COST_NR, COST_DSP] })
-                }
+                if (data['Grade']!='DSP') {
+                    COST_NR = ((parseFloat(r[0]['nr_unloading']) * parseFloat(data['Unloading']))/20);
+                    resolve({ data: [COST_NR, COST_DSP,parseFloat(data['Unloading']),0] });
+                  } else
+                  {
+                    COST_DSP = ((parseFloat(r[0]['dsp_unloading']) * parseFloat(data['Unloading']))/20);
+                    resolve({ data: [COST_NR, COST_DSP,0,parseFloat(data['Unloading'])] })
+                  }
             } else
             {
                 resolve([{ id: '0' }])
