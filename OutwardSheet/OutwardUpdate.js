@@ -8,9 +8,9 @@ module.exports = function (app, MYSQL_CON)
 
 function UpdateOutwardSheet (CONNECTION, DATA,res)
 {
-    console.log(DATA);
     getDepotData(CONNECTION, DATA).then((reponse) =>
     {
+        console.log(DATA);
         var UPDATE_QUERY_INWARD_SHEET = `UPDATE outtable SET 
         dealerName='${ DATA['Dealer_Name'] }',
         dealercode='${ DATA['Dealer_Code']}',
@@ -49,7 +49,7 @@ function UpdateOutwardSheet (CONNECTION, DATA,res)
         dsp_unloading_cost='0'
         where Unique_Id='${ DATA['Unique_Id'] }';`;
 
-        CONNECTION.query(UPDATE_QUERY_INWARD_SHEET+''+UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
+        CONNECTION.query(UPDATE_QUERY_INWARD_SHEET+UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
             if (err)
             {
                 res.json({ Status: false, Error:err,Result:[]});
@@ -84,7 +84,8 @@ function getDepotData (CONNECTION,data)
            COST_DSP = ((parseFloat(r[0]['DSP_Loading']) * parseFloat(data['Unloading'])) / 20);
            COST_DSP_TPH=((parseFloat(r[0]['DSP_Transshipment']) * parseFloat(data['Transphipment'])) / 20);;
          }
-         resolve({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH] });
+           resolve({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH] });
+           console.log({ data: [COST_NR, COST_DSP, COST_NR_TPH, COST_DSP_TPH] });
        } else
        {
          resolve([{id:'0'}])
