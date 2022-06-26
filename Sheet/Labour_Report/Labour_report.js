@@ -7,29 +7,23 @@ module.exports =  (connection,req)=>
         {
            
          //NON DSP DATA
-         var q_1 = `SELECT SUM(unloading) as unloadingsum,
-         SUM(transphipment) as transphipmentsum,entryDate as entryDate,depot_code
-         from intable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
-         and depot_code='${req.body['Depot_Code'] }' and deleteflag='0' and grade!='DSP' GROUP BY entryDate;`;
-         
-         //DSP DATA
-         var q_2 = `SELECT SUM(unloading) as unloadingsum,
-         SUM(transphipment) as transphipmentsum,entryDate as entryDate,depot_code
-         from intable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
-         and depot_code='${req.body['Depot_Code'] }' and deleteflag='0' and grade='DSP' GROUP BY entryDate;`;
+         var q_1 = `select SUM(nr_loading) as nr_loading_bag,
+         SUM(nr_transhipment) as nr_transhipment_bag,
+         SUM(nr_unloading) as nr_unloading_bag,
+         SUM(dsp_loading) as dsp_loading_bag,
+         SUM(dsp_transhipment) as dsp_transhipment_bag,
+         SUM(dsp_unloading) as dsp_unloading_bag,
+         SUM(nr_loading_cost+nr_transhipment_cost+nr_unloading_cost+dsp_loading_cost+dsp_transhipment_cost+dsp_unloading_cost)
+         as HANDLING_COST_SUM,
+         SUM(nr_loading+nr_transhipment+nr_unloading) as TOTAL_NR_BAG,
+         SUM(dsp_loading+dsp_transhipment+dsp_unloading) as TOTAL_DSP_BAG,
+         entryDate,depot_code
+         from newstock where entryDate between '${req.body['Start_Date'] }' AND 
+         '${ req.body['End_Date'] }' and depot_code='${ req.body['Depot_Code'] }' 
+         and deleteflag='0' group by entryDate,depot_code;`;
             
-         //LOading NON DSP DATA
-         var q_3 = `SELECT SUM(loading) as loadingsum,SUM(diversion) as dversion,entryDate as entryDate,depot_code
-         from outtable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
-         and depot_code='${req.body['Depot_Code'] }' and deleteflag='0' and grade!='DSP' GROUP BY entryDate;`;
-         
-         //Loading DSP DATA
-         var q_4 = `SELECT SUM(loading) as loadingsum,SUM(diversion) as dversion,entryDate as entryDate,depot_code
-         from outtable where entryDate between '${req.body['Start_Date']}' AND '${req.body['End_Date']}'
-         and depot_code='${req.body['Depot_Code'] }' and deleteflag='0' and grade='DSP' GROUP BY entryDate;`;
-        
-        var q_5 = `SELECT * from depot where depot_code='${ req.body['Depot_Code'] }';`;  
-        connection.query(q_1+q_2+q_3+q_4+q_5, [1,2,3,4,5], (e, r) =>
+        var q_2 = `SELECT * from depot where depot_code='${ req.body['Depot_Code'] }';`;  
+        connection.query(q_1+q_2, [1,2], (e, r) =>
          {
                 if (e){
                     resolve({ status: false, message: 'Somethings wrong...', error: e });
@@ -37,11 +31,8 @@ module.exports =  (connection,req)=>
                 if (r[0].length != 0 && r[0]!=undefined) {
                     resolve({
                         Status: true, Data: {
-                            NON_DSP: r[0],
-                            DSP: r[1],
-                            LOADING_NON_DSP: r[2],
-                            LOADING_DSP: r[3],
-                            DEPOT_DATA:r[4]
+                            RESPONSE:r[0],
+                            DEPOT_DATA:r[1]
                         }, Message: 'Data found...'
                     });   
                 } else {
