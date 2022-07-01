@@ -8,6 +8,7 @@ module.exports = function (app, MYSQL_CON)
 
 function  Insert (CONNECTION, DATA,res)
 {
+    
     if (DATA['Depot_Code'] != '' && DATA['Depot_Code'] != '')
     {
 

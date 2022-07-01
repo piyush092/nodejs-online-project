@@ -13,47 +13,58 @@ function UpdateInwardSheet (CONNECTION, DATA,res)
     getDepotData(CONNECTION,DATA).then((reponse) =>
     {
         var comments = DATA['Comments'];
-   
-        var UPDATE_QUERY_INWARD_SHEET=`UPDATE intable SET particulars='${DATA['SourcePlant']}',
-        invoiceNumber='${DATA['InvoiceNumber'] }',invoiceDate='${ DATA['InvoiceDate'] }',
-        arrivalDateOfTruck='${ DATA['ArrivalDateOfTruck'] }',invoiceQty='${ DATA['InvoiceQty']}',
-        grade='${DATA['Grade'] }',shortage='${ DATA['Shortage'] }',cutAndTorn='${ DATA['CutAndTorn'] }',
-        goodStock='${ DATA['GoodStock'] }',unloading='${ DATA['Unloading']}',
-        transphipment='${DATA['Transphipment'] }',diversion='${ DATA['Diversion'] }',
-        transporterCompany='${ DATA['TransporterCompany'] }',vehicleNumber='${ DATA['VehicleNumber']}',
-        driverName='${DATA['DriverName'] }',driverMobileNumber='${ DATA['DriverMobileNumber'] }',
-        reasonForDelay='${ DATA['reasonForDelay'] }',inTimeOfTruck='${ DATA['InTimeOfTruck']}',
-        outTimeOfTruck='${DATA['OutTimeOfTruck'] }',haltHour='${ DATA['HaltHour'] }',
+        CONNECTION.getConnection(function (err, connection)
+        {
+            var UPDATE_QUERY_INWARD_SHEET = `UPDATE intable SET particulars='${ DATA['SourcePlant'] }',
+        invoiceNumber='${ DATA['InvoiceNumber'] }',invoiceDate='${ DATA['InvoiceDate'] }',
+        arrivalDateOfTruck='${ DATA['ArrivalDateOfTruck'] }',invoiceQty='${ DATA['InvoiceQty'] }',
+        grade='${ DATA['Grade'] }',shortage='${ DATA['Shortage'] }',cutAndTorn='${ DATA['CutAndTorn'] }',
+        goodStock='${ DATA['GoodStock'] }',unloading='${ DATA['Unloading'] }',
+        transphipment='${ DATA['Transphipment'] }',diversion='${ DATA['Diversion'] }',
+        transporterCompany='${ DATA['TransporterCompany'] }',vehicleNumber='${ DATA['VehicleNumber'] }',
+        driverName='${ DATA['DriverName'] }',driverMobileNumber='${ DATA['DriverMobileNumber'] }',
+        reasonForDelay='${ DATA['reasonForDelay'] }',inTimeOfTruck='${ DATA['InTimeOfTruck'] }',
+        outTimeOfTruck='${ DATA['OutTimeOfTruck'] }',haltHour='${ DATA['HaltHour'] }',
         entryDate='${ DATA['Entry_Date'] }',
-        billingtimeofplant='${ DATA['BillingTimeOfPlant'] }',cleardateoftruck='${ DATA['ClearDateOfTruck']}',
-        comments='${comments }',Month='${ DATA['Month'] }',
-        Year='${ DATA['Year'] }', nr_unloading_cost='${reponse['data'][0]}',dsp_unloading_cost='${reponse['data'][1]}' where Unique_Id='${ DATA['Unique_Id'] }';`;
+        billingtimeofplant='${ DATA['BillingTimeOfPlant'] }',cleardateoftruck='${ DATA['ClearDateOfTruck'] }',
+        comments='${ comments }',Month='${ DATA['Month'] }',
+        Year='${ DATA['Year'] }', nr_unloading_cost='${ reponse['data'][0] }',dsp_unloading_cost='${ reponse['data'][1] }' where Unique_Id='${ DATA['Unique_Id'] }';`;
     
-        var UPDATE_QUERY_NEWSTOCK_SHEET = `UPDATE newstock SET entryDate='${ DATA['Entry_Date'] }',
+            var UPDATE_QUERY_NEWSTOCK_SHEET = `UPDATE newstock SET entryDate='${ DATA['Entry_Date'] }',
         particulars='${ DATA['SourcePlant'] }',invoiceNumber='${ DATA['InvoiceNumber'] }',
         invoiceDate='${ DATA['InvoiceDate'] }',
-        invoiceQty='${ DATA['InvoiceQty'] }',grade='${ DATA['Grade']}',
-        vehicleNumber='${DATA['VehicleNumber']}',
-        comments='${comments }',Month='${ DATA['Month'] }',
+        invoiceQty='${ DATA['InvoiceQty'] }',grade='${ DATA['Grade'] }',
+        vehicleNumber='${ DATA['VehicleNumber'] }',
+        comments='${ comments }',Month='${ DATA['Month'] }',
         Year='${ DATA['Year'] }',calcQty='${ DATA['InvoiceQty'] }',
         nr_loading_cost='0', dsp_loading_cost='0', nr_transhipment_cost='0', 
-        dsp_transhipment_cost='0', nr_unloading_cost='${reponse['data'][0] }',
-        dsp_unloading_cost='${reponse['data'][1]}',
+        dsp_transhipment_cost='0', nr_unloading_cost='${ reponse['data'][0] }',
+        dsp_unloading_cost='${ reponse['data'][1] }',
         nr_loading='0', dsp_loading='0', nr_transhipment='0', 
-        dsp_transhipment='0', nr_unloading='${reponse['data'][2] }',
-        dsp_unloading='${reponse['data'][3]}'
+        dsp_transhipment='0', nr_unloading='${ reponse['data'][2] }',
+        dsp_unloading='${ reponse['data'][3] }'
         where Unique_Id='${ DATA['Unique_Id'] }';`;
     
-        CONNECTION.query(UPDATE_QUERY_INWARD_SHEET+''+UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function(err, results) {
-            if (err) throw err;
-          if (results[0]['affectedRows']!=0 && results[1]['affectedRows']!=0) {
-               res.json({ Status: true, Message: 'Update Successfully',Result:[results[0],results[1]]});
-          } else{
-               res.json({ Status: true, Error:err,Result:[results[0],results[1]]});
-          }
+            connection.query(UPDATE_QUERY_INWARD_SHEET + '' + UPDATE_QUERY_NEWSTOCK_SHEET, [1, 2], function (err, results)
+            {
+                if (err)
+                {
+                    connection.release();
+                    throw err
+                };
+                
+                if (results[0]['affectedRows'] != 0 && results[1]['affectedRows'] != 0)
+                {
+                    res.json({ Status: true, Message: 'Update Successfully', Result: [results[0], results[1]] });
+                    connection.release();
+                } else
+                {
+                    res.json({ Status: true, Error: err, Result: [results[0], results[1]] });
+                    connection.release();
+                }
+            });
         });
     });
-   
 }
 function getDepotData (CONNECTION, data)
 {
