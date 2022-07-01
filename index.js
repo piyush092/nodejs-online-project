@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const sql = require("./Connection.js");
+const path = require('path');
 
 const InwardInsertSheet = require('./InwardSheet/Inward_Insert_Sheet.js');
 const InwardViewData = require('./InwardSheet/InwardSheetView.js');
@@ -127,7 +128,7 @@ app.get('/Grade', (req, res) =>
 
 app.post("/Correction_Report/data",  (req, res) =>
 {
-  CORRECTION_REPORT_DATA(sql, req)?.then((e) =>
+  CORRECTION_REPORT_DATA(sql, req).then((e) =>
   {
     res.json(e);
   });
@@ -158,5 +159,9 @@ const PORT = process.env.PORT || 3000;
 var server=app.listen(PORT, () => {
   console.log(`Server is running on port ${ PORT }.`);
 });
+app.use(express.static('../main-container/dist/main-container'));
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../main-container/dist/main-container/index.html'));
+})
 server.setTimeout(30*10000);
 ExcelTodb(app, sql, server, STATUS_CHECK);
